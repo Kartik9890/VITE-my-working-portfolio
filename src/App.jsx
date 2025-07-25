@@ -3,24 +3,23 @@ import { useState } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
-import ContactModal from './pages/ContactModal';
+import ContactPopup from './pages/ContactPopup';
 
 function App() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
-  const openContactModal = () => setModalOpen(true);
-  const closeContactModal = () => setModalOpen(false);
+  const openContactPopup = () => setIsContactOpen(true);
+  const closeContactPopup = () => setIsContactOpen(false);
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home openContactModal={openContactModal} />} />
+        <Route path="/" element={<Home openContactPopup={openContactPopup} />} />
         <Route path="/projects" element={<Projects />} />
-        {/* No /contact route here */}
       </Routes>
 
-      {/* Modal rendered outside routes */}
-      <ContactModal isOpen={modalOpen} onRequestClose={closeContactModal} />
+      {/* Contact popup modal rendered globally */}
+      <ContactPopup isOpen={isContactOpen} onClose={closeContactPopup} />
     </Router>
   );
 }

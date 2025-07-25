@@ -3,7 +3,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "./Home.css";
 import profileImg from "../assets/kartikGitPic.png";
-import GitHubCalendar from "react-github-calendar";
 
 const roles = [
   "A Frontend Developer",
@@ -12,13 +11,12 @@ const roles = [
   "UI/UX Learner",
 ];
 
-function Home({ openContactModal }) {
+function Home({ openContactPopup }) {
   const [currentText, setCurrentText] = useState("");
   const [index, setIndex] = useState(0);
   const [subIndex, setSubIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
 
-  // Init AOS
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -35,12 +33,9 @@ function Home({ openContactModal }) {
       return;
     }
 
-    const timeout = setTimeout(
-      () => {
-        setSubIndex((prev) => (deleting ? prev - 1 : prev + 1));
-      },
-      deleting ? 50 : 100
-    );
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => (deleting ? prev - 1 : prev + 1));
+    }, deleting ? 50 : 100);
 
     return () => clearTimeout(timeout);
   }, [subIndex, deleting, index]);
@@ -68,7 +63,7 @@ function Home({ openContactModal }) {
             <a href="/projects" className="btn">
               View Projects
             </a>
-            <button className="btn outline" onClick={openContactModal}>
+            <button className="btn outline" onClick={openContactPopup}>
               Contact Me
             </button>
             <a
