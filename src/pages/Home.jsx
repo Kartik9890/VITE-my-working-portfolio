@@ -67,7 +67,7 @@ function Home({ openContactPopup }) {
               Contact Me
             </button>
             <a
-              href="/Kartik Hande_J_21Oct24_3.9.pdf"
+              href="/resume.pdf"
               download
               className="btn download"
               rel="noopener noreferrer"

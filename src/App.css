@@ -73,3 +73,23 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Prevent vertical scroll unless content exceeds viewport */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;       /* Prevent horizontal scroll */
+  overflow-y: auto;         /* Allow vertical scroll only if needed */
+  scroll-behavior: smooth;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Optional: Prevent vertical scroll completely (NOT RECOMMENDED unless required) */
+/* body {
+  overflow: hidden;
+} */
