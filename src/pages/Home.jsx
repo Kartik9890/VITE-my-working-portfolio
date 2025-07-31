@@ -60,7 +60,7 @@ function Home({ openContactPopup }) {
           <p>I love building clean and functional web interfaces.</p>
 
           <div className="home-buttons">
-            <a href="/projects" className="btn">
+            <a href="/VITE-my-working-portfolio/projects" className="btn">
               View Projects
             </a>
             <button className="btn outline" onClick={openContactPopup}>
