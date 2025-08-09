@@ -33,9 +33,12 @@ function Home({ openContactPopup }) {
       return;
     }
 
-    const timeout = setTimeout(() => {
-      setSubIndex((prev) => (deleting ? prev - 1 : prev + 1));
-    }, deleting ? 50 : 100);
+    const timeout = setTimeout(
+      () => {
+        setSubIndex((prev) => (deleting ? prev - 1 : prev + 1));
+      },
+      deleting ? 50 : 100
+    );
 
     return () => clearTimeout(timeout);
   }, [subIndex, deleting, index]);
@@ -67,7 +70,7 @@ function Home({ openContactPopup }) {
               Contact Me
             </button>
             <a
-              href="/resume.pdf"
+              href={`${import.meta.env.BASE_URL}resume.pdf`}
               download
               className="btn download"
               rel="noopener noreferrer"
@@ -84,7 +87,10 @@ function Home({ openContactPopup }) {
         <div className="tech-icons">
           <i className="devicon-react-original colored" title="React"></i>
           <i className="devicon-java-plain colored" title="Java"></i>
-          <i className="devicon-javascript-plain colored" title="JavaScript"></i>
+          <i
+            className="devicon-javascript-plain colored"
+            title="JavaScript"
+          ></i>
           <i className="devicon-html5-plain colored" title="HTML5"></i>
           <i className="devicon-css3-plain colored" title="CSS3"></i>
           <i className="devicon-git-plain colored" title="Git"></i>
