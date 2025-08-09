@@ -6,12 +6,18 @@ function Projects() {
   const [repos, setRepos] = useState([]);
   const [error, setError] = useState("");
 
-  const username = "Kartik9890"; // <-- Apna GitHub username
+  const username = "Kartik9890"; // your GitHub username
 
   useEffect(() => {
-    fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
+    const token = import.meta.env.VITE_GITHUB_TOKEN; // optional
+    const headers = token ? { Authorization: `token ${token}` } : {};
+
+    fetch(`https://api.github.com/users/${username}/repos?per_page=100`, {
+      headers,
+    })
       .then((res) => {
         if (!res.ok) {
+          // if rate-limited or blocked
           throw new Error(`GitHub API Error: ${res.status}`);
         }
         return res.json();
@@ -23,9 +29,9 @@ function Projects() {
         setRepos(filtered);
       })
       .catch((err) => {
-        console.error(err);
+        console.error("Projects fetch error:", err);
         setError(
-          "⚠ Unable to load projects from GitHub. Please try again later."
+          "⚠ Unable to load projects from GitHub (rate limit or network). Click below to view all projects on GitHub."
         );
       });
   }, []);
@@ -34,10 +40,22 @@ function Projects() {
     <section className="projects-section">
       <h1>🚀 Projects</h1>
       <p className="projects-intro">
-        Explore all my open-source projects from GitHub.
+        Explore my open-source projects on GitHub.
       </p>
 
-      {error && <p className="error-text">{error}</p>}
+      {error && (
+        <div className="error-block">
+          <p className="error-text">{error}</p>
+          <a
+            href={`https://github.com/${username}?tab=repositories`}
+            target="_blank"
+            rel="noreferrer"
+            className="btn outline"
+          >
+            View all projects on GitHub
+          </a>
+        </div>
+      )}
 
       <div className="projects-grid">
         {repos.map((repo, index) => (
@@ -46,7 +64,7 @@ function Projects() {
             className="project-card"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
+            transition={{ delay: index * 0.06, duration: 0.45 }}
           >
             <h2>{repo.name}</h2>
             <p className="description">
@@ -79,8 +97,10 @@ function Projects() {
             </div>
           </motion.div>
         ))}
-        {repos.length === 0 && !error && <p>Loading projects...</p>}
       </div>
+
+      {/* fallback when no repos and no error */}
+      {repos.length === 0 && !error && <p>Loading projects...</p>}
     </section>
   );
 }
